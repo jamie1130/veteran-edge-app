@@ -31,6 +31,27 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env
 
 # typescript
 *.tsbuildinfo
+
+# Firebase config with sensitive info
+# Uncomment the line below if you're storing actual API keys in firebase.js
+# firebase.js
+
+# Logs
+logs
+*.log
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Temporary files
+*.swp
+*.swo
