@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import theme from '../utils/theme';
 
 // Import screens
 import HomeScreen from '../screens/home/HomeScreen';
@@ -24,8 +25,21 @@ const MainTabNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#1E88E5',
-        tabBarInactiveTintColor: '#757575',
+        tabBarActiveTintColor: theme.colors.primary, // Syracuse Orange
+        tabBarInactiveTintColor: theme.colors.secondary, // Dark Gray
+        tabBarStyle: {
+          backgroundColor: theme.colors.surface,
+          borderTopColor: theme.colors.border,
+          elevation: 8,
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          height: 60,
+          paddingBottom: 8,
+        },
+        tabBarLabelStyle: {
+          ...theme.typography.styles.caption,
+          fontWeight: theme.typography.fontWeight.medium,
+        },
       }}
     >
       <Tab.Screen 
@@ -34,7 +48,9 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size }}>🏠</Text>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ color, fontSize: size }}>🏠</Text>
+            </View>
           ),
         }}
       />
@@ -44,7 +60,9 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: 'Agenda',
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size }}>📅</Text>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ color, fontSize: size }}>📅</Text>
+            </View>
           ),
         }}
       />
@@ -54,7 +72,9 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: 'Speakers',
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size }}>👥</Text>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ color, fontSize: size }}>👥</Text>
+            </View>
           ),
         }}
       />
@@ -64,7 +84,9 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: 'Maps',
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size }}>🗺️</Text>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ color, fontSize: size }}>🗺️</Text>
+            </View>
           ),
         }}
       />
@@ -74,7 +96,9 @@ const MainTabNavigator = () => {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ color, fontSize: size }}>👤</Text>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ color, fontSize: size }}>👤</Text>
+            </View>
           ),
         }}
       />

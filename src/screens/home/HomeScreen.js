@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import theme from '../../utils/theme';
+import CustomButton from '../../components/CustomButton';
 
 const HomeScreen = ({ navigation }) => {
   // Sample data for upcoming events
@@ -76,39 +78,45 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.viewDetails}>→</Text>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity
-            style={styles.viewAllButton}
+          <CustomButton
+            title="View Full Agenda"
+            type="text"
             onPress={() => navigation.navigate('Agenda')}
-          >
-            <Text style={styles.viewAllButtonText}>View Full Agenda</Text>
-          </TouchableOpacity>
+            style={styles.viewAllButton}
+          />
         </View>
 
         {/* Quick Actions */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Quick Actions</Text>
           <View style={styles.quickActionsContainer}>
-            <TouchableOpacity
-              style={styles.quickActionButton}
-              onPress={() => navigation.navigate('Maps')}
-            >
+            <View style={styles.quickActionButton}>
               <Text style={styles.quickActionIcon}>🗺️</Text>
-              <Text style={styles.quickActionText}>Venue Map</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.quickActionButton}
-              onPress={() => navigation.navigate('Speakers')}
-            >
+              <CustomButton
+                title="Venue Map"
+                type="text"
+                onPress={() => navigation.navigate('Maps')}
+                textStyle={styles.quickActionText}
+              />
+            </View>
+            <View style={styles.quickActionButton}>
               <Text style={styles.quickActionIcon}>👥</Text>
-              <Text style={styles.quickActionText}>Speakers</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.quickActionButton}
-              onPress={() => navigation.navigate('Profile')}
-            >
+              <CustomButton
+                title="Speakers"
+                type="text"
+                onPress={() => navigation.navigate('Speakers')}
+                textStyle={styles.quickActionText}
+              />
+            </View>
+            <View style={styles.quickActionButton}>
               <Text style={styles.quickActionIcon}>📋</Text>
-              <Text style={styles.quickActionText}>My Schedule</Text>
-            </TouchableOpacity>
+              <CustomButton
+                title="My Schedule"
+                type="text"
+                onPress={() => navigation.navigate('Profile')}
+                textStyle={styles.quickActionText}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -119,127 +127,111 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.colors.background,
   },
   scrollView: {
     flex: 1,
   },
   header: {
-    padding: 20,
-    backgroundColor: '#1E88E5',
+    padding: theme.spacing.md,
+    backgroundColor: theme.colors.primary, // Syracuse Orange
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    ...theme.typography.styles.headline,
+    color: theme.colors.text.inverse, // White text on orange background
   },
   headerSubtitle: {
-    fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.8)',
-    marginTop: 5,
+    ...theme.typography.styles.subheading,
+    color: theme.colors.text.inverse,
+    opacity: 0.9,
+    marginTop: theme.spacing.xs,
   },
   section: {
-    marginVertical: 15,
-    paddingHorizontal: 20,
+    marginVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.md,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#333',
+    ...theme.typography.styles.title,
+    color: theme.colors.text.primary,
+    marginBottom: theme.spacing.sm,
   },
   announcementCard: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 10,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.md,
+    marginBottom: theme.spacing.sm,
+    ...theme.shadows.sm,
   },
   announcementTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
-    color: '#333',
+    ...theme.typography.styles.subtitle,
+    color: theme.colors.text.primary,
+    marginBottom: theme.spacing.xs,
   },
   announcementContent: {
-    fontSize: 14,
-    color: '#666',
+    ...theme.typography.styles.body,
+    color: theme.colors.text.secondary,
   },
   eventCard: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 10,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.md,
+    marginBottom: theme.spacing.sm,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    ...theme.shadows.sm,
   },
   eventInfo: {
     flex: 1,
   },
   eventTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    ...theme.typography.styles.subtitle,
+    color: theme.colors.text.primary,
   },
   eventTime: {
-    fontSize: 14,
-    color: '#1E88E5',
-    marginTop: 5,
+    ...theme.typography.styles.body,
+    color: theme.colors.primary, // Syracuse Orange
+    marginTop: theme.spacing.xs,
   },
   eventLocation: {
-    fontSize: 14,
-    color: '#666',
+    ...theme.typography.styles.body,
+    color: theme.colors.text.secondary,
     marginTop: 2,
   },
   viewDetails: {
     fontSize: 18,
-    color: '#1E88E5',
+    color: theme.colors.primary, // Syracuse Orange
   },
   viewAllButton: {
     backgroundColor: 'transparent',
-    padding: 10,
+    padding: theme.spacing.sm,
     alignItems: 'center',
-    marginTop: 5,
+    marginTop: theme.spacing.xs,
   },
   viewAllButtonText: {
-    color: '#1E88E5',
-    fontSize: 16,
-    fontWeight: '500',
+    color: theme.colors.primary, // Syracuse Orange
+    ...theme.typography.styles.button,
   },
   quickActionsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 5,
+    marginTop: theme.spacing.xs,
   },
   quickActionButton: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 15,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.md,
     alignItems: 'center',
     width: '30%',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    ...theme.shadows.sm,
   },
   quickActionIcon: {
     fontSize: 24,
-    marginBottom: 5,
+    marginBottom: theme.spacing.xs,
   },
   quickActionText: {
-    fontSize: 12,
-    color: '#333',
+    ...theme.typography.styles.caption,
+    color: theme.colors.text.primary,
     textAlign: 'center',
   },
 });

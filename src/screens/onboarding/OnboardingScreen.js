@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import theme from '../../utils/theme';
+import CustomButton from '../../components/CustomButton';
 
 const { width, height } = Dimensions.get('window');
 
@@ -148,27 +150,26 @@ const OnboardingScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         {currentIndex < onboardingData.length - 1 ? (
           <>
-            <TouchableOpacity
-              style={styles.skipButton}
+            <CustomButton
+              title="Skip"
+              type="text"
               onPress={handleFinish}
-            >
-              <Text style={styles.skipButtonText}>Skip</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.nextButton}
+              style={styles.skipButton}
+            />
+            <CustomButton
+              title="Next"
+              type="filled"
               onPress={handleNext}
-            >
-              <Text style={styles.nextButtonText}>Next</Text>
-            </TouchableOpacity>
+              style={styles.nextButton}
+            />
           </>
         ) : (
-          <TouchableOpacity
-            style={[styles.nextButton, styles.getStartedButton]}
+          <CustomButton
+            title="Get Started"
+            type="filled"
             onPress={handleFinish}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.nextButtonText}>Get Started</Text>
-          </TouchableOpacity>
+            style={styles.getStartedButton}
+          />
         )}
       </View>
     </SafeAreaView>
@@ -178,77 +179,63 @@ const OnboardingScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.surface,
   },
   slide: {
     width,
     alignItems: 'center',
-    padding: 20,
+    padding: theme.spacing.md,
   },
   image: {
     width: width * 0.8,
     height: height * 0.4,
     resizeMode: 'contain',
-    marginBottom: 30,
-    marginTop: 20,
+    marginBottom: theme.spacing.xl,
+    marginTop: theme.spacing.lg,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1E88E5',
-    marginBottom: 10,
+    ...theme.typography.styles.headline,
+    color: theme.colors.primary, // Syracuse Orange
+    marginBottom: theme.spacing.sm,
     textAlign: 'center',
   },
   description: {
-    fontSize: 16,
-    color: '#666',
+    ...theme.typography.styles.body,
+    color: theme.colors.text.secondary,
     textAlign: 'center',
-    paddingHorizontal: 20,
-    lineHeight: 24,
+    paddingHorizontal: theme.spacing.md,
   },
   paginationContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: theme.spacing.md,
   },
   dot: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#1E88E5',
-    marginHorizontal: 5,
+    backgroundColor: theme.colors.primary, // Syracuse Orange
+    marginHorizontal: theme.spacing.xs,
   },
   activeDot: {
-    backgroundColor: '#1E88E5',
+    backgroundColor: theme.colors.primary, // Syracuse Orange
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingBottom: 30,
+    paddingHorizontal: theme.spacing.md,
+    paddingBottom: theme.spacing.xl,
   },
   skipButton: {
-    padding: 15,
-  },
-  skipButtonText: {
-    fontSize: 16,
-    color: '#666',
+    // Custom button already handles padding
   },
   nextButton: {
-    backgroundColor: '#1E88E5',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 8,
+    // Custom button already handles styling
   },
   getStartedButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  nextButtonText: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: '500',
   },
 });
 

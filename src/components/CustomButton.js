@@ -1,12 +1,13 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import theme from '../utils/theme';
 
 /**
- * CustomButton - A reusable button component with consistent styling
+ * CustomButton - A reusable button component with Syracuse University styling
  * 
  * @param {string} title - Button text
  * @param {function} onPress - Function to call when button is pressed
- * @param {string} type - Button type: 'primary', 'secondary', 'outline', 'text' (default: 'primary')
+ * @param {string} type - Button type: 'filled', 'outlined', 'text' (default: 'filled')
  * @param {boolean} isLoading - Whether to show a loading indicator (default: false)
  * @param {boolean} disabled - Whether the button is disabled (default: false)
  * @param {object} style - Additional style for the button (optional)
@@ -15,7 +16,7 @@ import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-nat
 const CustomButton = ({
   title,
   onPress,
-  type = 'primary',
+  type = 'filled',
   isLoading = false,
   disabled = false,
   style,
@@ -24,28 +25,35 @@ const CustomButton = ({
   // Determine button style based on type
   const getButtonStyle = () => {
     switch (type) {
-      case 'secondary':
-        return styles.secondaryButton;
-      case 'outline':
-        return styles.outlineButton;
+      case 'outlined':
+        return styles.outlinedButton;
       case 'text':
         return styles.textButton;
       default:
-        return styles.primaryButton;
+        return styles.filledButton;
     }
   };
 
   // Determine text style based on type
   const getTextStyle = () => {
     switch (type) {
-      case 'secondary':
-        return styles.secondaryText;
-      case 'outline':
-        return styles.outlineText;
+      case 'outlined':
+        return styles.outlinedText;
       case 'text':
         return styles.textButtonText;
       default:
-        return styles.primaryText;
+        return styles.filledText;
+    }
+  };
+
+  // Determine loading indicator color based on button type
+  const getLoaderColor = () => {
+    switch (type) {
+      case 'outlined':
+      case 'text':
+        return theme.colors.primary; // Syracuse Orange
+      default:
+        return theme.colors.text.inverse; // White
     }
   };
 
@@ -64,7 +72,7 @@ const CustomButton = ({
       {isLoading ? (
         <ActivityIndicator 
           size="small" 
-          color={type === 'primary' ? 'white' : '#1E88E5'} 
+          color={getLoaderColor()} 
         />
       ) : (
         <Text 
@@ -84,51 +92,55 @@ const CustomButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.borderRadius.md,
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: 100,
+    ...theme.typography.styles.label,
   },
-  primaryButton: {
-    backgroundColor: '#1E88E5',
+  // Filled button (high emphasis) - Syracuse Orange background
+  filledButton: {
+    backgroundColor: theme.colors.primary,
+    ...theme.shadows.sm,
   },
-  secondaryButton: {
-    backgroundColor: '#E3F2FD',
-  },
-  outlineButton: {
+  // Outlined button (medium emphasis) - Transparent with Syracuse Orange border
+  outlinedButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#1E88E5',
+    borderColor: theme.colors.primary,
   },
+  // Text button (low emphasis) - Text only
   textButton: {
     backgroundColor: 'transparent',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingVertical: theme.spacing.xs,
+    paddingHorizontal: theme.spacing.sm,
   },
+  // Disabled state
   disabledButton: {
-    backgroundColor: '#E0E0E0',
-    borderColor: '#E0E0E0',
+    backgroundColor: theme.colors.secondaryLight,
+    borderColor: theme.colors.secondaryLight,
+    opacity: 0.7,
   },
+  // Text styling
   text: {
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: theme.typography.fontSize.label,
+    fontWeight: theme.typography.fontWeight.medium,
+    letterSpacing: 0.1,
   },
-  primaryText: {
-    color: 'white',
+  // Text colors for different button types
+  filledText: {
+    color: theme.colors.text.inverse, // White text on Syracuse Orange
   },
-  secondaryText: {
-    color: '#1E88E5',
-  },
-  outlineText: {
-    color: '#1E88E5',
+  outlinedText: {
+    color: theme.colors.primary, // Syracuse Orange text
   },
   textButtonText: {
-    color: '#1E88E5',
+    color: theme.colors.primary, // Syracuse Orange text
   },
   disabledText: {
-    color: '#9E9E9E',
+    color: theme.colors.text.disabled,
   },
 });
 
